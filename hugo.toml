@@ -81,7 +81,7 @@ pagination.pagerSize = 10
   
   [[params.social]]
     name = "github"
-    url = "https://github.com/dado1513"
+    url = "https://github.com/0xdad01513"
   
   [[params.social]]
     name = "hackthebox"
