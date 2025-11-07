@@ -5,7 +5,7 @@ author = "Davide Caputo"
 +++
 
 
-#### Hi, I'm Davide Caputo (aka @0xdad01513)
+#### Hi, I'm Davide Caputo (aka @0xdad0)
 
 PhD, Cybersecurity Enthusiast 🤩 and HTB player 👨‍💻
 

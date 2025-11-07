@@ -53,7 +53,7 @@ pagination.pagerSize = 10
     subtitle  = "0xdad0"
 
     [languages.en.params.logo]
-      logoText = "dado0xdad0"
+      logoText = "0xdad0"
       logoHomeLink = "/"
     # or
     #
