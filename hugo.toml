@@ -1,5 +1,5 @@
 baseurl      = ""
-title        = "Dado1513"
+title        = "0xdad0"
 languageCode = "en-us"
 theme        = "hello-friend-ng"
 pagination.pagerSize = 10
@@ -44,16 +44,16 @@ pagination.pagerSize = 10
 
 [languages]
   [languages.en]
-    title = "dado1513"
+    title = "0xdad0"
     keywords = ""
     copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
     readOtherPosts = "Read other posts"
 
   [languages.en.params]
-    subtitle  = "Dado1513"
+    subtitle  = "0xdad0"
 
     [languages.en.params.logo]
-      logoText = "dado1513"
+      logoText = "dado0xdad0"
       logoHomeLink = "/"
     # or
     #
@@ -81,7 +81,7 @@ pagination.pagerSize = 10
   
   [[params.social]]
     name = "github"
-    url = "https://github.com/0xdad01513"
+    url = "https://github.com/0xdad0"
   
   [[params.social]]
     name = "hackthebox"
