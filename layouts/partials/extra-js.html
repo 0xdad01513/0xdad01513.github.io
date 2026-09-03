@@ -1,0 +1,7 @@
+{{ if eq .Section "notes" }}
+  {{ $notesJS := resources.Get "js/notes.js" }}
+  {{ with $notesJS }}
+    {{ $secure := . | js.Build | resources.Fingerprint "sha512" }}
+    <script type="text/javascript" src="{{ $secure.RelPermalink }}" integrity="{{ $secure.Data.Integrity }}"></script>
+  {{ end }}
+{{ end }}

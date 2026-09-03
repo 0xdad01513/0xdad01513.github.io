@@ -1,0 +1,619 @@
+/*
+ * GitBook-style notes section, built on the hello-friend-ng palette.
+ * Loaded only on /notes pages via layouts/partials/extra-head.html.
+ *
+ * Palette mirrors themes/hello-friend-ng/assets/scss/_variables.scss:
+ *   light: bg #fff / bg-secondary #eaeaea / border #dcdcdc / text #222
+ *   dark:  bg #232425 / bg-secondary #3b3d42 / border #4e4e57 / text #a9a9b3
+ */
+
+:root {
+  --notes-light-background: #fff;
+  --notes-light-background-secondary: #eaeaea;
+  --notes-light-border: #dcdcdc;
+  --notes-light-table: #dcdcdc;
+  --notes-light-color: #222;
+
+  --notes-dark-background: #232425;
+  --notes-dark-background-secondary: #3b3d42;
+  --notes-dark-border: #4e4e57;
+  --notes-dark-table: #4e4e57;
+  --notes-dark-color: #a9a9b3;
+
+  --notes-sidebar-width: 280px;
+  --notes-toc-width: 230px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --notes-background: var(--notes-dark-background);
+    --notes-background-secondary: var(--notes-dark-background-secondary);
+    --notes-border: var(--notes-dark-border);
+    --notes-table-border: var(--notes-dark-table);
+    --notes-color: var(--notes-dark-color);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --notes-background: var(--notes-light-background);
+    --notes-background-secondary: var(--notes-light-background-secondary);
+    --notes-border: var(--notes-light-border);
+    --notes-table-border: var(--notes-light-table);
+    --notes-color: var(--notes-light-color);
+  }
+}
+
+[data-theme="dark"] {
+  --notes-background: var(--notes-dark-background);
+  --notes-background-secondary: var(--notes-dark-background-secondary);
+  --notes-border: var(--notes-dark-border);
+  --notes-table-border: var(--notes-dark-table);
+  --notes-color: var(--notes-dark-color);
+}
+
+[data-theme="light"] {
+  --notes-background: var(--notes-light-background);
+  --notes-background-secondary: var(--notes-light-background-secondary);
+  --notes-border: var(--notes-light-border);
+  --notes-table-border: var(--notes-light-table);
+  --notes-color: var(--notes-light-color);
+}
+
+/* Pin notes layout to the top of the page: the theme vertically centers its
+   .content wrapper, which floats the notes shell mid-page on short notes. */
+
+.content:has(> .notes-shell) {
+  justify-content: flex-start;
+}
+
+.notes-shell {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 1360px;
+  gap: 20px;
+  text-align: left;
+  margin-top: 30px;
+}
+
+/* Sidebar */
+
+.notes-sidebar {
+  position: sticky;
+  top: 20px;
+  flex: 0 0 var(--notes-sidebar-width);
+  width: var(--notes-sidebar-width);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 10px 6px 40px;
+  border-right: 1px solid var(--notes-border);
+
+  @media (max-width: 900px) {
+    position: fixed;
+    inset: 0 auto 0 0;
+    top: 0;
+    z-index: 120;
+    flex: none;
+    width: 300px;
+    max-width: 85vw;
+    max-height: 100vh;
+    border-right: 0;
+    padding-top: 20px;
+    background: var(--notes-background);
+    transform: translateX(-105%);
+    transition: transform 0.25s ease;
+  }
+}
+
+/* Search */
+
+.notes-search {
+  width: 100%;
+  padding: 7px 10px;
+  margin-bottom: 14px;
+  font: inherit;
+  font-size: 0.88rem;
+  color: inherit;
+  background: var(--notes-background-secondary);
+  border: 1px solid var(--notes-border);
+  border-radius: 6px;
+  outline: none;
+}
+
+.notes-search::placeholder {
+  opacity: 0.55;
+}
+
+.notes-search:focus {
+  border-color: var(--notes-color-secondary, var(--notes-border));
+}
+
+.notes-search-results {
+  margin: 0 0 14px;
+  border: 1px solid var(--notes-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--notes-background);
+}
+
+.notes-search-item {
+  display: block;
+  padding: 8px 10px;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--notes-border);
+}
+
+.notes-search-item:last-child {
+  border-bottom: 0;
+}
+
+.notes-search-item:hover {
+  background: var(--notes-background-secondary);
+}
+
+.notes-search-title {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.notes-search-chapter {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+  margin-top: 2px;
+}
+
+.notes-search-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.notes-search-tag {
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 1px 7px;
+  color: inherit;
+  background: var(--notes-background-secondary);
+  border: 1px solid var(--notes-border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.notes-search-tag:hover {
+  border-color: currentColor;
+}
+
+.notes-search-empty {
+  padding: 10px;
+  font-size: 0.85rem;
+  opacity: 0.65;
+}
+
+.notes-sidebar-inner.notes-searching .notes-tree {
+  display: none;
+}
+
+/* Collapsible chapter tree */
+
+.notes-sidebar-overlay {
+  display: none;
+
+  @media (max-width: 900px) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+}
+
+.notes-sidebar-toggle {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .notes-sidebar-toggle:checked ~ .notes-sidebar {
+    transform: translateX(0);
+  }
+
+  .notes-sidebar-toggle:checked ~ .notes-sidebar-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.notes-tree {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notes-tree-item {
+  margin: 0;
+}
+
+.notes-tree-item ul.notes-tree {
+  margin: 0 0 6px;
+}
+
+.notes-tree-toggle {
+  display: none;
+}
+
+.notes-tree-head {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 10px;
+}
+
+.notes-tree-caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  opacity: 0.55;
+}
+
+.notes-tree-caret::before {
+  content: "▾";
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.notes-tree-toggle:not(:checked) ~ .notes-tree-head .notes-tree-caret::before {
+  transform: rotate(-90deg);
+}
+
+.notes-tree-toggle:not(:checked) ~ .notes-tree {
+  display: none;
+}
+
+.notes-tree-section {
+  font-size: 0.82rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.75;
+}
+
+.notes-tree-section:hover {
+  opacity: 1;
+}
+
+.notes-tree-count {
+  margin-left: auto;
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+
+.notes-tree-link {
+  display: block;
+  padding: 4px 0 4px 20px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.notes-tree-link:hover {
+  opacity: 0.75;
+}
+
+.notes-tree-active {
+  font-weight: bold;
+  opacity: 1;
+}
+
+.notes-tree-more a {
+  padding-left: 20px;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* Content column */
+
+.notes-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 800px;
+  text-align: left;
+  margin: 0 auto;
+  padding: 10px 0 40px;
+}
+
+/* Tables: mirror the theme's .post-content table styling (.post-content is
+   not applied on notes pages, so tables there would render without borders) */
+
+.notes-content table {
+  border-collapse: collapse;
+  margin: 25px auto;
+  font-size: 0.9em;
+  min-width: 400px;
+  max-width: 100%;
+
+  display: block;
+  overflow-x: auto;
+}
+
+.notes-content th,
+.notes-content td {
+  padding: 12px 15px;
+  border: 1px solid var(--notes-border);
+}
+
+.notes-content thead tr {
+  text-align: left;
+  background-color: var(--notes-table-border);
+  color: var(--notes-color);
+}
+
+.notes-content tbody tr {
+  border: 1px solid var(--notes-table-border);
+}
+
+.notes-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.8rem;
+  opacity: 0.65;
+  margin-bottom: 24px;
+}
+
+.notes-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.notes-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.notes-breadcrumb-current {
+  font-weight: bold;
+  opacity: 0.9;
+}
+
+.notes-article {
+  width: 100%;
+  text-align: left;
+}
+
+.notes-article-title {
+  font-size: 2.2rem;
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+
+.notes-article-lead {
+  font-size: 1.05rem;
+  opacity: 0.7;
+  margin: 0 0 30px;
+}
+
+.notes-content {
+  text-align: left;
+}
+
+.notes-content p,
+.notes-content li {
+  line-height: 1.7;
+}
+
+.notes-content h2 {
+  scroll-margin-top: 20px;
+}
+
+.notes-content img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notes-content-landing {
+  opacity: 0.85;
+  margin-bottom: 10px;
+}
+
+/* On this page (right TOC) */
+
+.notes-toc {
+  position: sticky;
+  top: 20px;
+  flex: 0 0 var(--notes-toc-width);
+  width: var(--notes-toc-width);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  padding: 10px 0 40px;
+  opacity: 0.85;
+}
+
+.notes-toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.notes-toc ul ul {
+  margin-left: 12px;
+}
+
+.notes-toc li {
+  margin: 2px 0;
+}
+
+.notes-toc a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.notes-toc a:hover {
+  text-decoration: underline;
+}
+
+.notes-toc-title {
+  font-size: 0.72rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .notes-toc {
+    display: none;
+  }
+}
+
+/* Prev / next navigation */
+
+.notes-prevnext {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 40px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--notes-border);
+}
+
+.notes-prevnext a {
+  color: inherit;
+  text-decoration: none;
+  max-width: 48%;
+}
+
+.notes-prevnext a:hover .notes-prevnext-title {
+  text-decoration: underline;
+}
+
+.notes-prevnext-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.notes-prevnext-title {
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+@media (max-width: 684px) {
+  .notes-prevnext {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .notes-prevnext a {
+    max-width: 100%;
+  }
+}
+
+/* Notes landing page */
+
+.notes-landing {
+  width: 100%;
+  max-width: 800px;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.notes-landing-title {
+  font-size: 2.4rem;
+  margin: 10px 0 20px;
+}
+
+.notes-landing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.notes-landing-card {
+  border: 1px solid var(--notes-border);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+
+.notes-landing-card-title {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.notes-landing-card-title:hover {
+  text-decoration: underline;
+}
+
+.notes-landing-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.92rem;
+}
+
+.notes-landing-list li {
+  margin: 6px 0;
+}
+
+.notes-landing-list a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.notes-landing-list a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 684px) {
+  .notes-landing-title {
+    font-size: 1.8rem;
+  }
+
+  .notes-article-title {
+    font-size: 1.7rem;
+  }
+}
+
+/* Code blocks: align Prism background with the theme palette and wrap long lines */
+
+.notes-content pre[class*="language-"],
+.notes-content code[class*="language-"] {
+  background: transparent;
+  color: inherit;
+  text-shadow: none;
+  font-size: 0.95rem;
+}
+
+.notes-content pre[class*="language-"] {
+  padding: 10px 10px 10px 20px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  margin: 30px auto;
+  background-color: var(--notes-background-secondary);
+}

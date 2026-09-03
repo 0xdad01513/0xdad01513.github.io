@@ -1,0 +1,80 @@
+{{ $page := . }}
+{{ $notes := site.GetPage "/notes" }}
+
+{{ $items := slice }}
+{{ if $notes }}
+  {{ range $notes.RegularPagesRecursive }}
+    {{ $chapter := "" }}
+    {{ with .Parent }}{{ if .IsPage }}{{ with .Parent }}{{ $chapter = .Title }}{{ else }}{{ $chapter = .Title }}{{ end }}{{ else }}{{ $chapter = .Title }}{{ end }}{{ end }}
+    {{ $tags := .Params.tags | default slice }}
+    {{ $topics := .Params.topics | default slice }}
+    {{ $items = $items | append (dict
+        "t" .Title
+        "u" .RelPermalink
+        "c" $chapter
+        "g" ($tags | union $topics)) }}
+  {{ end }}
+{{ end }}
+{{ $index := resources.FromString "notes-search-index.json" ($items | jsonify) }}
+
+{{ $branchPermalinks := dict }}
+{{ if $notes }}
+  {{ range $notes.Pages }}
+    {{ if not .IsPage }}
+      {{ $branchPermalinks = merge $branchPermalinks (dict .RelPermalink true) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<div class="notes-sidebar-inner" data-index-url="{{ $index.RelPermalink }}">
+  <input type="search" class="notes-search" placeholder="Search notes" aria-label="Search notes by title or tag" autocomplete="off" spellcheck="false">
+  <div class="notes-search-results" hidden></div>
+
+  <ul class="notes-tree">
+    {{ if $notes }}
+      {{ range $notes.Pages }}
+        {{ if .IsPage }}
+          <li class="notes-tree-item">
+            <a href="{{ .RelPermalink }}" class="notes-tree-link{{ if eq .RelPermalink $page.RelPermalink }} notes-tree-active{{ end }}">{{ .Title }}</a>
+          </li>
+        {{ else }}
+          {{ $active := eq .RelPermalink $page.RelPermalink }}
+          {{ if not $active }}
+            {{ range .RegularPagesRecursive }}
+              {{ if eq .RelPermalink $page.RelPermalink }}{{ $active = true }}{{ end }}
+            {{ end }}
+          {{ end }}
+          <li class="notes-tree-item">
+            <input type="checkbox" class="notes-tree-toggle" id="notes-ch-{{ .File.ContentBaseName }}"{{ if $active }} checked{{ end }} aria-hidden="true">
+            <div class="notes-tree-head">
+              <label for="notes-ch-{{ .File.ContentBaseName }}" class="notes-tree-caret"><span class="screen-reader-text">Toggle {{ .Title }}</span></label>
+              <a href="{{ .RelPermalink }}" class="notes-tree-section{{ if eq .RelPermalink $page.RelPermalink }} notes-tree-active{{ end }}">{{ .Title }}</a>
+              <span class="notes-tree-count">{{ len .RegularPagesRecursive }}</span>
+            </div>
+            <ul class="notes-tree">
+              {{ range first 5 .RegularPagesRecursive }}
+                <li class="notes-tree-item">
+                  <a href="{{ .RelPermalink }}" class="notes-tree-link{{ if eq .RelPermalink $page.RelPermalink }} notes-tree-active{{ end }}">{{ .Title }}</a>
+                </li>
+              {{ end }}
+              {{ if gt (len .RegularPagesRecursive) 5 }}
+                <li class="notes-tree-item notes-tree-more">
+                  <a href="{{ .RelPermalink }}">View all {{ len .RegularPagesRecursive }} →</a>
+                </li>
+              {{ end }}
+            </ul>
+          </li>
+        {{ end }}
+      {{ end }}
+
+      {{ range $notes.RegularPagesRecursive }}
+        {{ $parent := .Parent }}
+        {{ if not (index $branchPermalinks $parent.RelPermalink) }}
+          <li class="notes-tree-item">
+            <a href="{{ .RelPermalink }}" class="notes-tree-link{{ if eq .RelPermalink $page.RelPermalink }} notes-tree-active{{ end }}">{{ .Title }}</a>
+          </li>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  </ul>
+</div>

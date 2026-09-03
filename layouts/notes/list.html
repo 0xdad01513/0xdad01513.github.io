@@ -1,0 +1,34 @@
+{{ define "main" }}
+<div class="notes-shell">
+  <input type="checkbox" id="notes-sidebar-toggle" class="notes-sidebar-toggle" aria-hidden="true">
+  <aside class="notes-sidebar">
+    {{ partial "notes-sidebar.html" . }}
+  </aside>
+  <label for="notes-sidebar-toggle" class="notes-sidebar-overlay" aria-hidden="true"></label>
+
+  <main class="notes-main">
+    <div class="notes-landing">
+      <h1 class="notes-landing-title">{{ .Title }}</h1>
+
+      {{ with .Content }}
+        <div class="notes-content notes-content-landing">{{ . }}</div>
+      {{ end }}
+
+      <div class="notes-landing-grid">
+        {{ range .Pages }}
+          <div class="notes-landing-card">
+            <a href="{{ .RelPermalink }}" class="notes-landing-card-title">{{ .Title }}</a>
+            <ul class="notes-landing-list">
+              {{ range .Pages }}
+                <li>
+                  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </main>
+</div>
+{{ end }}

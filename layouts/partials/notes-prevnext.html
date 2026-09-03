@@ -1,0 +1,27 @@
+{{ if ne .Kind "home" }}
+  {{ $pages := where .Site.RegularPages "Type" "notes" }}
+  {{ $current := . }}
+
+  {{ $prev := "" }}{{ $next := "" }}
+  {{ range $i, $p := $pages }}
+    {{ if eq .RelPermalink $current.RelPermalink }}
+      {{ if gt $i 0 }}{{ $prev = index $pages (sub $i 1) }}{{ end }}
+      {{ if lt $i (sub (len $pages) 1) }}{{ $next = index $pages (add $i 1) }}{{ end }}
+    {{ end }}
+  {{ end }}
+
+  <nav class="notes-prevnext">
+    {{ with $prev }}
+      <a class="notes-prevnext-prev" href="{{ .RelPermalink }}">
+        <span class="notes-prevnext-title">← {{ .Title }}</span>
+      </a>
+    {{ else }}
+      <span></span>
+    {{ end }}
+    {{ with $next }}
+      <a class="notes-prevnext-next" href="{{ .RelPermalink }}">
+        <span class="notes-prevnext-title">{{ .Title }} →</span>
+      </a>
+    {{ end }}
+  </nav>
+{{ end }}

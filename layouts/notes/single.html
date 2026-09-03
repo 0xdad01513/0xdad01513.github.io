@@ -1,0 +1,40 @@
+{{ define "main" }}
+<div class="notes-shell">
+  <input type="checkbox" id="notes-sidebar-toggle" class="notes-sidebar-toggle" aria-hidden="true">
+  <aside class="notes-sidebar">
+    {{ partial "notes-sidebar.html" . }}
+  </aside>
+  <label for="notes-sidebar-toggle" class="notes-sidebar-overlay" aria-hidden="true"></label>
+
+  <main class="notes-main">
+    <article class="notes-article">
+      <nav class="notes-breadcrumb" aria-label="Breadcrumb">
+        {{ range .Ancestors.Reverse }}
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <span class="notes-breadcrumb-sep">/</span>
+        {{ end }}
+        <span class="notes-breadcrumb-current">{{ .Title }}</span>
+      </nav>
+
+      <h1 class="notes-article-title">{{ .Title }}</h1>
+
+      {{ with .Description }}
+        <p class="notes-article-lead">{{ . }}</p>
+      {{ end }}
+
+      <div class="notes-content">
+        {{ .Content }}
+      </div>
+    </article>
+
+    {{ partial "notes-prevnext.html" . }}
+  </main>
+
+  {{ if .Content }}
+    <aside class="notes-toc">
+      <div class="notes-toc-title">{{ i18n "tableOfContents" }}</div>
+      {{ .TableOfContents }}
+    </aside>
+  {{ end }}
+</div>
+{{ end }}

@@ -7,6 +7,56 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 03 Sep 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Frida-Alternative</title>
+      <link>/tags/frida-alternative/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/frida-alternative/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lsposed</title>
+      <link>/tags/lsposed/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/lsposed/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mobile</title>
+      <link>/tags/mobile/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/mobile/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pivoting</title>
+      <link>/tags/pivoting/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/pivoting/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Port-Forwarding</title>
+      <link>/tags/port-forwarding/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/port-forwarding/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ssl-Pinning</title>
+      <link>/tags/ssl-pinning/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/ssl-pinning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tunnelling</title>
+      <link>/tags/tunnelling/</link>
+      <pubDate>Thu, 03 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/tunnelling/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

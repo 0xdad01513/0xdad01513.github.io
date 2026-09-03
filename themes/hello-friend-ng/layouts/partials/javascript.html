@@ -35,3 +35,8 @@
     mermaid.initialize(settings);
 </script>
 {{ end }}
+
+<!-- Custom foot scripts -->
+{{- if templates.Exists "partials/extra-js.html" -}}
+    {{ partial "extra-js.html" . }}
+{{- end }}
