@@ -11,18 +11,15 @@ PhD, Cybersecurity Enthusiast 🤩 and HTB player 👨‍💻
 
 
 
+
+
+Passionate about mobile application security (Android and iOS) 📱, Web Application Security 🌐 and Red Teaming 🔴
+
 {{< linked-image 
     src="https://www.hackthebox.eu/badge/image/580421" 
     alt="HTB Badge"  position="center"
-    href="https://app.hackthebox.eu/profile/580421" 
-    style="width: 30%; text-align: center; border-radius: 8px; text-align: center; position: relative; float: center; "  >}}
-
-Passionate about mobile application security (Android and iOS) 📱, Web Application Security 🌐 and Red Teaming (work in progress 🛠) 🔴
-
-
-I'm currently working as a Senior Cyber Security Consultant at Horizon Security S.r.l.
-
-
+    href="https://profile.hackthebox.com/profile/019c585e-a273-7125-b2b7-92ca4c38f365" 
+    style=" text-align: center; border-radius: 8px; text-align: center; position: relative; float: center; margin-bottom:2%"  >}}
 
 
 {{< badge-row >}}
